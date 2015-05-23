@@ -34,17 +34,17 @@
 		<link>
 			<name>res/CaixaPDV.jpg</name>
 			<type>1</type>
-			<location>C:/TEMP/CaixaPDV.jpg</location>
+			<location>C:/Temp/CaixaPDV.jpg</location>
 		</link>
 		<link>
 			<name>res/CaixaSCA.jpg</name>
 			<type>1</type>
-			<location>C:/TEMP/CaixaSCA.jpg</location>
+			<location>C:/Temp/CaixaSCA.jpg</location>
 		</link>
 		<link>
 			<name>res/caixaandroid.jpg</name>
 			<type>1</type>
-			<location>C:/TEMP/caixaandroid.jpg</location>
+			<location>C:/Temp/caixaandroid.jpg</location>
 		</link>
 	</linkedResources>
 </projectDescription>

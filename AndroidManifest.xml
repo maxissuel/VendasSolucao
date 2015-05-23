@@ -30,7 +30,7 @@
         android:theme="@style/AppTheme" >
         <service android:name="com.consultoriasolucao.appsolucaosistemas.BackgroundService"></service>
          <service android:name="com.consultoriasolucao.appsolucaosistemas.MyService"></service>
-        <activity android:name="com.consultoriasolucao.appsolucaosistemas.SolucaoSistemas"  android:label="@string/app_name" >
+        <activity android:name="com.consultoriasolucao.appsolucaosistemas.TransacoesOn"  android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 			    <category android:name="android.intent.category.LAUNCHER" />
@@ -39,46 +39,39 @@
             </intent-filter>
         </activity>
         <activity android:name="com.consultoriasolucao.appsolucaosistemas.Suporte"/>
-        <activity android:name="com.consultoriasolucao.appsolucaosistemas.TransacoesOn">
-           
-            
-            </activity>
-             <activity android:name="com.consultoriasolucao.appsolucaosistemas.Produtos"/>
-             <activity android:name="com.consultoriasolucao.appsolucaosistemas.QuemSomos"/>
-             <activity android:name="com.consultoriasolucao.appsolucaosistemas.Contato"/>
-             <activity android:name="com.consultoriasolucao.appsolucaosistemas.ConsultaCliente"/>
-             
-             <activity android:name="com.consultoriasolucao.appsolucaosistemas.CodigodeAcesso"/>
-             <activity android:name="com.consultoriasolucao.appsolucaosistemas.Utilidades"/>
-             <activity android:name="com.consultoriasolucao.appsolucaosistemas.CalcularFerias"/>
-             <activity android:name="com.consultoriasolucao.appsolucaosistemas.CalcularFinanciamento"/>
-              <activity android:name="com.consultoriasolucao.appsolucaosistemas.FinancasPessoais"/>
-               <activity android:name="com.consultoriasolucao.appsolucaosistemas.LancaDespesa"/>
-               <activity android:name="com.consultoriasolucao.appsolucaosistemas.RelatorioFinanceiro"/>
-               <activity android:name="com.consultoriasolucao.appsolucaosistemas.LancaReceita"/>
-                <activity android:name="com.consultoriasolucao.appsolucaosistemas.ConsultaCagetoria"/>
-                 <activity android:name="com.consultoriasolucao.appsolucaosistemas.Categoria"/>
-                 <activity android:name="com.consultoriasolucao.appsolucaosistemas.FiltroRelatFinanceiro"/>
-                     <activity android:name="com.consultoriasolucao.appsolucaosistemas.LancaPedido"/>
-                      <activity android:name="com.consultoriasolucao.appsolucaosistemas.FiltroGerenciarPedido"/>
-                      <activity android:name="com.consultoriasolucao.appsolucaosistemas.GerenciarPedido"/>
+
+        <activity android:name="com.consultoriasolucao.appsolucaosistemas.Produtos"/>
+        <activity android:name="com.consultoriasolucao.appsolucaosistemas.QuemSomos"/>
+        <activity android:name="com.consultoriasolucao.appsolucaosistemas.Contato"/>
+        <activity android:name="com.consultoriasolucao.appsolucaosistemas.ConsultaCliente"/>
+        <activity android:name="com.consultoriasolucao.appsolucaosistemas.CodigodeAcesso"/>
+        <activity android:name="com.consultoriasolucao.appsolucaosistemas.Utilidades"/>
+        <activity android:name="com.consultoriasolucao.appsolucaosistemas.CalcularFerias"/>
+        <activity android:name="com.consultoriasolucao.appsolucaosistemas.CalcularFinanciamento"/>
+        <activity android:name="com.consultoriasolucao.appsolucaosistemas.FinancasPessoais"/>
+        <activity android:name="com.consultoriasolucao.appsolucaosistemas.LancaDespesa"/>
+        <activity android:name="com.consultoriasolucao.appsolucaosistemas.RelatorioFinanceiro"/>
+        <activity android:name="com.consultoriasolucao.appsolucaosistemas.LancaReceita"/>
+        <activity android:name="com.consultoriasolucao.appsolucaosistemas.ConsultaCagetoria"/>
+        <activity android:name="com.consultoriasolucao.appsolucaosistemas.Categoria"/>
+        <activity android:name="com.consultoriasolucao.appsolucaosistemas.FiltroRelatFinanceiro"/>
+        <activity android:name="com.consultoriasolucao.appsolucaosistemas.LancaPedido"/>
+        <activity android:name="com.consultoriasolucao.appsolucaosistemas.FiltroGerenciarPedido"/>
+        <activity android:name="com.consultoriasolucao.appsolucaosistemas.GerenciarPedido"/>
                      
-                     <activity android:name="com.consultoriasolucao.appsolucaosistemas.GerenciarLocalizacao"/>
-             <activity android:name="com.consultoriasolucao.appsolucaosistemas.ConsultaProduto">
-                 
-                 
-                 
-                <intent-filter>
+        <activity android:name="com.consultoriasolucao.appsolucaosistemas.GerenciarLocalizacao"/>
+        <activity android:name="com.consultoriasolucao.appsolucaosistemas.ConsultaProduto">
+        	<intent-filter>
                 <action android:name="com.consultoriasolucao.appsolucaosistemas.ACAO_EXIBIR_SAUDACAO" />
                 <category android:name="com.consultoriasolucao.appsolucaosistemas.CATEGORIA_SAUDACAO" />
                 <category android:name="android.intent.category.DEFAULT" />
             </intent-filter>
         </activity> 
-             <activity android:name="com.consultoriasolucao.appsolucaosistemas.DadosProduto"/>
-             <activity android:name="com.consultoriasolucao.appsolucaosistemas.DadosCliente"/>
-             <activity android:name="com.consultoriasolucao.appsolucaosistemas.LancaItensPedido"/>
-             <activity android:name="com.consultoriasolucao.appsolucaosistemas.Enviaremailcliente"/>
-             <activity android:name="com.consultoriasolucao.appsolucaosistemas.Enviaremailloja"/>
+        <activity android:name="com.consultoriasolucao.appsolucaosistemas.DadosProduto"/>
+        <activity android:name="com.consultoriasolucao.appsolucaosistemas.DadosCliente"/>
+        <activity android:name="com.consultoriasolucao.appsolucaosistemas.LancaItensPedido"/>
+        <activity android:name="com.consultoriasolucao.appsolucaosistemas.Enviaremailcliente"/>
+        <activity android:name="com.consultoriasolucao.appsolucaosistemas.Enviaremailloja"/>
              
     </application>
 
