@@ -135,27 +135,20 @@ public class GerenciarPedido extends Activity implements
 			startActivity(intent2);	
 			
 			return true;
-			
-			
-		case R.id.enviar_pedemail:
-			
-			Intent intent3 = new Intent(this, Enviaremailcliente.class);
-			cd_lancamento = produtos.get(info.position).get("cd_pedido");
-			intent3.putExtra(Enviaremailcliente.EXTRA_CD_PEDIDO, cd_lancamento);
-			startActivity(intent3);	
-			
-			
-			
-			return true;
+
 			
 			
 		case R.id.enviar_xmlemail:
 			
-			Intent intent4 = new Intent(this, Enviaremailloja.class);
+			Intent intent4 = new Intent(this, Enviaremailcliente.class);
 			cd_lancamento = produtos.get(info.position).get("cd_pedido");
-			intent4.putExtra(Enviaremailloja.EXTRA_CD_PEDIDO, cd_lancamento);
+			intent4.putExtra(Enviaremailcliente.EXTRA_CD_PEDIDO, cd_lancamento);
 			startActivity(intent4);	
 			
+			Intent intent3 = new Intent(this, Enviaremailloja.class);
+			cd_lancamento = produtos.get(info.position).get("cd_pedido");
+			intent3.putExtra(Enviaremailloja.EXTRA_CD_PEDIDO, cd_lancamento);
+			startActivity(intent3);		
 			
 			
 			return true;
@@ -249,7 +242,7 @@ public class GerenciarPedido extends Activity implements
 	
 	public void atualizaLista(View view)
 	{
-	  buscarrelat();
+	  this.finish();
 	}
 
 	@Override

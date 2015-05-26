@@ -34,7 +34,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 	    db.execSQL("ALTER TABLE cliente ADD cd_uf TEXT"); 
 	    db.execSQL("CREATE TABLE coordenadagps (_id INTEGER, dt_lancamento DATE, hr_lancamento DOUBLE,  ds_usuario TEXT); ");
 		db.execSQL("ALTER TABLE licenca ADD ds_usuario TEXT"); 
-		db.execSQL("ALTER TABLE licenca ADD nm_email TEXT"); 
+		db.execSQL("ALTER TABLE licenca ADD ds_email TEXT"); 
 		db.execSQL("ALTER TABLE coordenadagps ADD vl_latitudec TEXT");
 		db.execSQL("ALTER TABLE coordenadagps ADD  vl_longitudec TEXT");
 		

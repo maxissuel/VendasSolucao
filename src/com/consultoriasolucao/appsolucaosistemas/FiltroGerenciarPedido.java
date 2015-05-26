@@ -32,7 +32,7 @@ public class FiltroGerenciarPedido extends Activity {
 	boolean flagdataini;
 	private DatabaseHelper db;
 	private Button btcd_cli;
-		private String filtro;
+	private String filtro;
 	public static final String EXTRA_CD_CLI = "com.consultoriasolucao.appsolucaosistemas.EXTRA_CD_CLI";
 	private DatabaseHelper helper;
 	
@@ -47,7 +47,7 @@ public class FiltroGerenciarPedido extends Activity {
 		mes = calendar.get(Calendar.MONTH);
 		dia = calendar.get(Calendar.DAY_OF_MONTH);
 		btdtini = (Button) findViewById(R.id.btdataini);
-		btdtini.setText("01/" + (mes+1) + "/" + ano);
+		btdtini.setText(dia + "/" + (mes+1) + "/" + ano);
 		
 		btdtfim = (Button) findViewById(R.id.btdatafim);
 		btdtfim.setText(dia + "/" + (mes+1) + "/" + ano);

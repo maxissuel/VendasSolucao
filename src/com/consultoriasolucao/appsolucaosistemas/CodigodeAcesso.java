@@ -23,7 +23,7 @@ public class CodigodeAcesso extends Activity {
 	private WebView webview;
 	private EditText txtdslicenca;
 	private EditText txtnm_usuario;
-	private EditText txtnm_email;
+	private EditText txtds_email;
 	private DatabaseHelper helper;
 	
 	@Override
@@ -32,7 +32,7 @@ public class CodigodeAcesso extends Activity {
 		setContentView(R.layout.activity_codigodeacesso);
 		this.txtdslicenca = (EditText) findViewById(R.id.edtcodigoacesso);	
 		this.txtnm_usuario = (EditText) findViewById(R.id.txtnm_usuario);
-		this.txtnm_email = (EditText) findViewById(R.id.txtnm_email);
+		this.txtds_email = (EditText) findViewById(R.id.txtnm_email);
 		
 		// prepara acesso ao banco de dados
 		helper = new DatabaseHelper(this);	
@@ -46,7 +46,7 @@ public class CodigodeAcesso extends Activity {
 		ContentValues values = new ContentValues();
 		values.put("dslicenca", this.txtdslicenca.getText().toString());
 		values.put("ds_usuario", this.txtnm_usuario.getText().toString());
-		values.put("nm_email", this.txtnm_email.getText().toString());
+		values.put("ds_email", this.txtds_email.getText().toString());
 		long resultado = db.insert("licenca", null, values);
 		if(resultado != -1 )
 		{
@@ -63,7 +63,7 @@ public class CodigodeAcesso extends Activity {
 	public void VerificaCodigo(View view)
 	{
 		SQLiteDatabase db = helper.getReadableDatabase();
-		Cursor cursor = db.rawQuery("SELECT _id, dslicenca, ds_usuario,nm_email FROM licenca",	null);
+		Cursor cursor = db.rawQuery("SELECT _id, dslicenca, ds_usuario,ds_email FROM licenca",	null);
 		cursor.moveToNext();
 		
 		if (cursor.getCount() !=0)
@@ -74,7 +74,7 @@ public class CodigodeAcesso extends Activity {
 		  		  
 	      txtdslicenca.setText(ds_licenca);
 	      txtnm_usuario.setText(ds_usuario);
-	      txtnm_email.setText(nm_email);
+	      txtds_email.setText(nm_email);
 	      cursor.close();
 		} else Toast.makeText(this, "Não existe código de acesso cadastrado", Toast.LENGTH_LONG).show();
 		

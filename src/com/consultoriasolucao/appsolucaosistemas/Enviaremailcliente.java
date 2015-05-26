@@ -15,42 +15,55 @@ import android.database.sqlite.SQLiteDatabase;
 import android.text.Html;
 import android.view.Menu;
 import android.view.View;
+import android.view.WindowManager;
 import android.webkit.WebView;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class Enviaremailcliente extends Activity {
 
 	public static final String EXTRA_CD_PEDIDO = "com.consultoriasolucao.appsolucaosistemas.EXTRA_CD_PEDIDO";
 	private DatabaseHelper helper;
-	private TextView txtcd_pedido;
-	private EditText txtds_email;
+	private String cdpedido;
+	private String email="";
 	
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.activity_enviaremailcliente);
-		txtcd_pedido = (TextView) findViewById(R.id.txtcd_pedido);
-		txtds_email = (EditText) findViewById(R.id.txtds_email);
+		super.onCreate(savedInstanceState);		
+
 		
-		
+		Intent intent = getIntent();
+		if (intent.hasExtra(EXTRA_CD_PEDIDO)) 
+		{	
+			cdpedido = intent.getStringExtra(EXTRA_CD_PEDIDO);
+			
+		} 
 		
 		// prepara acesso ao banco de dados
 		helper = new DatabaseHelper(this);
 		
-		Intent intent = getIntent();
-		if (intent.hasExtra(EXTRA_CD_PEDIDO)) 
-		{
-			txtcd_pedido.setText(intent.getStringExtra(EXTRA_CD_PEDIDO));			
-			
-		} 
+		SQLiteDatabase db = helper.getReadableDatabase();
+		Cursor cursor = db.rawQuery("select a.ds_email from cliente a join pedido b on (a.cd_cli = b.cd_cli) where b._id="+cdpedido ,	null);
+		cursor.moveToNext();
+		
+		if (cursor.getCount() !=0)
+		{		
+		  email = cursor.getString(0);
+	      cursor.close();
+		}	
+
+		
+		enviaremailcliente();
+		
+		this.finish();
 	}
 	
-	public void enviaremailcliente(View view)
+	public void enviaremailcliente()
 	{
 		
 		
@@ -58,7 +71,7 @@ public class Enviaremailcliente extends Activity {
 				.getReadableDatabase()
 				.rawQuery(
 						"select a._id,  a.cd_prd, b.nm_prd, a.qt_iten ,a.vl_iten,(a.qt_iten*a.vl_iten),d.cd_cli,d.nm_cli,c.vl_total,c.ds_obs,c.ds_formapgto from itenspedido a join produto b on (a.cd_prd=b.cd_prd) join pedido c on (a.cd_pedido=c._id) join cliente d on (c.cd_cli=d.cd_cli) where a.cd_pedido= "
-								+ txtcd_pedido.getText(), null);
+								+ cdpedido, null);
 		
 		DecimalFormat df = new DecimalFormat(",##0.00");
 		StringBuilder sb = new StringBuilder();
@@ -71,7 +84,7 @@ public class Enviaremailcliente extends Activity {
 
 			if (i==0)//caso seja o primeiro registro o cabeçalho 
 			{
-				sb.append("Código do Pedido: <strong> " + txtcd_pedido.getText()+" </strong> ");
+				sb.append("Código do Pedido: <strong> " + cdpedido +" </strong> ");
 				sb.append("<br>");
 				sb.append("Cliente: <strong> "+c.getString(6) +" - "+c.getString(7) +"</strong>");
 				sb.append("<br>");
@@ -102,13 +115,13 @@ public class Enviaremailcliente extends Activity {
 		
 		//enviar email com os itens acima
 		Intent email1 = new Intent(Intent.ACTION_SEND);
-		email1.putExtra(Intent.EXTRA_EMAIL, new String[]{txtds_email.getText().toString()});		  
-		email1.putExtra(Intent.EXTRA_SUBJECT, "Pedido Código: " + txtcd_pedido.getText().toString());
+		email1.putExtra(Intent.EXTRA_EMAIL, new String[]{email});		  
+		email1.putExtra(Intent.EXTRA_SUBJECT, "Pedido Código: " + cdpedido);
 		email1.putExtra(Intent.EXTRA_TEXT,Html.fromHtml(sb.toString()));
 	//	email1.setType("message/rfc822");
 		email1.setType("text/html");
 		//startActivity(Intent.createChooser(email, "Choose an Email client :"));
-		startActivity(email1);
+		startActivity(email1); 
 		
 	}
 	
