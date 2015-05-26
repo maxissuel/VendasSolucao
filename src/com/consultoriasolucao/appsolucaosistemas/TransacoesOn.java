@@ -71,7 +71,8 @@ public class TransacoesOn extends Activity {
 
 	public void atualizarBd(View V)
 	{
-		if(isConected()){	
+		if(isConected()){
+			try{
 			//localizando o código de acesso
 			Cursor c = db.getReadableDatabase().rawQuery("select _id,  dslicenca from licenca", null);				
 			c.moveToNext();
@@ -244,7 +245,10 @@ public class TransacoesOn extends Activity {
 			
 			
 			}//fim else tem código de acesso
-		}
+			
+		}catch (Exception e) {
+			Toast.makeText(this, e+"", Toast.LENGTH_SHORT).show();
+		}}
 		else{
 			Toast.makeText(this, "Sem conexão de dados", Toast.LENGTH_SHORT).show();
 		}
