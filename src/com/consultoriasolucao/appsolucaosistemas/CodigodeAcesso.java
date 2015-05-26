@@ -21,17 +21,18 @@ import android.widget.Toast;
 public class CodigodeAcesso extends Activity {
 
 	private WebView webview;
-	private EditText nomeEditText;
+	private EditText txtdslicenca;
 	private EditText txtnm_usuario;
-	private TextView txtdslicenca;
+	private EditText txtnm_email;
 	private DatabaseHelper helper;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_codigodeacesso);
-		this.nomeEditText = (EditText) findViewById(R.id.edtcodigoacesso);	
+		this.txtdslicenca = (EditText) findViewById(R.id.edtcodigoacesso);	
 		this.txtnm_usuario = (EditText) findViewById(R.id.txtnm_usuario);
+		this.txtnm_email = (EditText) findViewById(R.id.txtnm_email);
 		
 		// prepara acesso ao banco de dados
 		helper = new DatabaseHelper(this);	
@@ -43,8 +44,9 @@ public class CodigodeAcesso extends Activity {
 		SQLiteDatabase db = helper.getWritableDatabase();
 		db.execSQL("delete from licenca");
 		ContentValues values = new ContentValues();
-		values.put("dslicenca", this.nomeEditText.getText().toString());
+		values.put("dslicenca", this.txtdslicenca.getText().toString());
 		values.put("ds_usuario", this.txtnm_usuario.getText().toString());
+		values.put("nm_email", this.txtnm_email.getText().toString());
 		long resultado = db.insert("licenca", null, values);
 		if(resultado != -1 )
 		{
@@ -55,20 +57,24 @@ public class CodigodeAcesso extends Activity {
 		  Toast.LENGTH_SHORT).show();
 		}
 		
-		this.nomeEditText.setText("");
+		this.txtdslicenca.setText("");
 		}
 
 	public void VerificaCodigo(View view)
 	{
 		SQLiteDatabase db = helper.getReadableDatabase();
-		Cursor cursor = db.rawQuery("SELECT _id, dslicenca FROM licenca",	null);
+		Cursor cursor = db.rawQuery("SELECT _id, dslicenca, ds_usuario,nm_email FROM licenca",	null);
 		cursor.moveToNext();
 		
 		if (cursor.getCount() !=0)
 		{		
-		  String id = cursor.getString(1);
-		  this.txtdslicenca = (TextView) findViewById(R.id.txtcodacesso);
-	      txtdslicenca.setText(id);
+		  String ds_licenca = cursor.getString(1);
+		  String ds_usuario = cursor.getString(2);
+		  String nm_email = cursor.getString(3);
+		  		  
+	      txtdslicenca.setText(ds_licenca);
+	      txtnm_usuario.setText(ds_usuario);
+	      txtnm_email.setText(nm_email);
 	      cursor.close();
 		} else Toast.makeText(this, "Não existe código de acesso cadastrado", Toast.LENGTH_LONG).show();
 		

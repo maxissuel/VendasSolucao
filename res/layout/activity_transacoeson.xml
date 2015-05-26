@@ -43,25 +43,25 @@
             </TableRow>
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/textView2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="" />
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/textView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="" />
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/textView4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="" />
 
             <TableRow
-                android:id="@+id/tableRow1"
+                android:id="@+id/tableRow5"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
 
@@ -74,7 +74,7 @@
                     android:src="@drawable/insepedido" />
 
                 <ImageView
-                    android:id="@+id/imageView1"
+                    android:id="@+id/imageView6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
@@ -85,26 +85,26 @@
             
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/textView5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="" />
 
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/textView6"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="" />
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/textView7"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="" />
 
             <TableRow
-                android:id="@+id/tableRow1"
+                android:id="@+id/tableRow2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
 
@@ -117,7 +117,7 @@
                     android:src="@drawable/codigoacesso" />
 
                 <ImageView
-                    android:id="@+id/imageView1"
+                    android:id="@+id/imageView5"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0.5"
@@ -140,23 +140,10 @@
           
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/textView8"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="" />
-
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="" />
-
-            <TextView
-                android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="Prezado Cliente,  as transações on-line permitirão a comunicação do seu telefone com o sistema SCA instalado em sua empresa. Para mais informações entre em contato (67) 3306-8495 " />
         </LinearLayout>
     </ScrollView>
 
