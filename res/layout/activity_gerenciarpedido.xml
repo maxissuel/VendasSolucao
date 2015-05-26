@@ -19,38 +19,39 @@
                     android:id="@+id/tableRow3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" >
+	                    <TextView
+	                        android:id="@+id/textView1"
+	                        android:layout_width="wrap_content"
+	                        android:layout_height="wrap_content"
+	                        android:text="Total Pedido " />
+	
+	                    <TextView
+	                        android:id="@+id/txttt_vlpedido"
+	                        android:layout_width="wrap_content"
+	                        android:layout_height="wrap_content"
+	                        android:text="0,00"
+	                        android:textColor="@color/vermelho"
+	                        android:layout_weight="0.5" />
 
-                    <TextView
-                        android:id="@+id/textView1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Total Pedido " />
+	                    <TextView
+	                        android:id="@+id/textView2"
+	                        android:layout_width="wrap_content"
+	                        android:layout_height="wrap_content"
+	                        android:layout_weight="0.01"
+	                        android:text="Quant: " />
 
-                    <TextView
-                        android:id="@+id/txttt_vlpedido"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0,00"
-                        android:textColor="@color/vermelho"
-                        android:layout_weight="0.5" />
-
-                    <TextView
-                        android:id="@+id/textView1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Quant: " 
-                        android:layout_weight="0.5"/>
-
-                    <TextView
-                        android:id="@+id/txttt_qtpedido"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="0,00"                         
-                        android:textColor="@color/vermelho" />
+	                    <TextView
+	                        android:id="@+id/txttt_qtpedido"
+	                        android:layout_width="wrap_content"
+	                        android:layout_height="wrap_content"
+	                        android:layout_x="104dp"
+	                        android:layout_y="0dp"
+	                        android:text="0,00"
+	                        android:textColor="@color/vermelho" />
 
                 </TableRow>
  <TableRow
-                    android:id="@+id/tableRow3"
+                    android:id="@+id/tableRow4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" >
 
