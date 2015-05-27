@@ -24,6 +24,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.WindowManager;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.webkit.WebView;
 import android.widget.AdapterView;
@@ -61,6 +62,10 @@ public class LancaPedido extends Activity implements OnItemClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_lancapedido);
+		
+        //para o teclado não aparecer automaticamente
+        this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN); 
+		
 		helper = new DatabaseHelper(this);
 
 		this.txtcd_pedido = (TextView) findViewById(R.id.txtcd_pedido);
@@ -259,6 +264,10 @@ public class LancaPedido extends Activity implements OnItemClickListener {
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 
+	}
+	
+	public void Sair(View view){
+		LancaPedido.this.finish();
 	}
 	
 	@Override

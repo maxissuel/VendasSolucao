@@ -12,21 +12,13 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
 
             <TableRow
                 android:id="@+id/tableRow1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content" >
-                
-
-                <TextView
-                    android:id="@+id/txtcd_pedido"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textStyle="bold"
-                    android:layout_weight="0.5"                                        
-                    android:text="" />
 
             </TableRow>
         </LinearLayout>
@@ -184,7 +176,7 @@
       	        android:layout_height="match_parent"
       	        android:layout_weight="0.91"
       	        android:ems="10"
-      	        android:inputType="numberDecimal" >
+      	        android:inputType="text" >
       	    </EditText>
 
       	    <EditText
@@ -192,7 +184,7 @@
       	        android:layout_width="64dp"
       	        android:layout_height="match_parent"
       	        android:ems="10"
-      	        android:inputType="numberDecimal" >
+      	        android:inputType="numberSigned" >
       	    </EditText>
       	</LinearLayout>
 
@@ -203,7 +195,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
       	
-       <LinearLayout>
+       <LinearLayout         
+            android:layout_width="match_parent"
+        	android:layout_height="wrap_content">
 
            <CheckBox
                android:id="@+id/checkBox1"
@@ -233,8 +227,10 @@
                android:id="@+id/bt_sair"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
+               android:onClick="Sair"
                android:text="Sair"
                android:textSize="14sp" />
+
        </LinearLayout>
        
    </TableRow>
@@ -244,20 +240,69 @@
         android:id="@+id/tableRow9"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
+       
+        <RelativeLayout
+      	    android:layout_width="match_parent"
+      	    android:layout_height="wrap_content" >
+           
+        <TextView
+            android:id="@+id/txtcd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="0.07"
+            android:text="Cód. Pedido: "
+            android:textColor="@color/vermelho"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Total Pedido: " />
-        
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="70dp"
+            android:layout_toRightOf="@+id/txtcd"
+            android:text="Total R$: "
+            android:textColor="@color/vermelho"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/txtcd_pedido"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/txtcd"
+            android:layout_weight="0.07"
+            android:textColor="@color/vermelho"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/txttt_pedido"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0,00" 
-            android:textStyle="bold"/>
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/textView6"
+            android:text="0,00"
+            android:textColor="@color/vermelho"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
+		</RelativeLayout>
+    </TableRow>
+    
+    <TableRow
+        android:id="@+id/tableRow10"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+        
+        
+        <ListView        
+            android:id="@+id/lst_produtos"
+        	android:layout_width="match_parent"
+        	android:layout_height="wrap_content" >            
+        </ListView>
     </TableRow>
 	
 </LinearLayout>

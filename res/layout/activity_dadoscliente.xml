@@ -50,7 +50,7 @@
         android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/textView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Razão Social: "
@@ -70,7 +70,7 @@
         android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/textView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"            
             android:text="Fon "
@@ -86,7 +86,7 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/textView4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cel "
@@ -95,7 +95,7 @@
     </TableRow>
 
     <TableRow
-        android:id="@+id/tableRow4"
+        android:id="@+id/tableRow5"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
@@ -125,7 +125,7 @@
     </TableRow>
 
     <TableRow
-        android:id="@+id/tableRow4"
+        android:id="@+id/tableRow6"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
@@ -138,7 +138,7 @@
             android:src="@drawable/icon_telefone" />
 
         <ImageView
-            android:id="@+id/imageView1"
+            android:id="@+id/imageView2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="0.40"
@@ -146,7 +146,7 @@
             android:src="@drawable/icon_telefone" />
 
         <ImageView
-            android:id="@+id/imageView1"
+            android:id="@+id/imageView3"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             
@@ -155,12 +155,12 @@
     </TableRow>
 
     <TableRow
-        android:id="@+id/tableRow4"
+        android:id="@+id/tableRow7"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/textView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cnpj: "
@@ -175,12 +175,12 @@
     </TableRow>
 
     <TableRow
-        android:id="@+id/tableRow4"
+        android:id="@+id/tableRow8"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/textView6"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="RG/IE: "
@@ -195,12 +195,12 @@
     </TableRow>
 
     <TableRow
-        android:id="@+id/tableRow4"
+        android:id="@+id/tableRow9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/textView7"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="E-Mail: "
@@ -214,13 +214,13 @@
             android:textColor="@color/categoria_hospedagem" />
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/textView8"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="   " />
 
         <ImageView
-            android:id="@+id/imageView2"
+            android:id="@+id/imageView5"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:onClick="enviarEmail"
@@ -228,14 +228,14 @@
     </TableRow>
 
     <TextView
-        android:id="@+id/textView1"
+        android:id="@+id/textView9"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Observações ... "
         android:textStyle="bold" />
 
     <TableRow
-        android:id="@+id/tableRow4"
+        android:id="@+id/tableRow10"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
 
@@ -248,19 +248,19 @@
     </TableRow>
 
     <ImageView
-        android:id="@+id/imageView3"
+        android:id="@+id/imageView6"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/maps"
         android:onClick="abrirMapa" />
 
     <TableRow
-        android:id="@+id/tableRow4"
+        android:id="@+id/tableRow11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/textView10"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Rua: "
@@ -275,12 +275,12 @@
     </TableRow>
 
     <TableRow
-        android:id="@+id/tableRow4"
+        android:id="@+id/tableRow12"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/textView11"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Bairro: "
@@ -295,12 +295,12 @@
     </TableRow>
 
     <TableRow
-        android:id="@+id/tableRow4"
+        android:id="@+id/tableRow14"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/textView12"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cidade: "
@@ -328,12 +328,12 @@
     </TableRow>
 
     <TableRow
-        android:id="@+id/tableRow4"
+        android:id="@+id/tableRow15"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/textView13"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Cep: "
@@ -348,12 +348,12 @@
     </TableRow>
 
     <TableRow
-        android:id="@+id/tableRow4"
+        android:id="@+id/tableRow16"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
 
         <TextView
-            android:id="@+id/textView1"
+            android:id="@+id/textView14"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Complemento: "
