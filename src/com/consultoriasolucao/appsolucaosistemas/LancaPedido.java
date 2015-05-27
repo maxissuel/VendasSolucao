@@ -69,23 +69,20 @@ public class LancaPedido extends Activity implements OnItemClickListener {
 		this.txtds_obs = (TextView) findViewById(R.id.txtds_obs);
 		this.txtcd_cli = (TextView) findViewById(R.id.txtcd_cli);
 		this.txtcd_tabelapreco = (TextView) findViewById(R.id.edtcd_tabelapreco);
-				this.btcd_cli = (Button) findViewById(R.id.btcd_cli);
+		this.btcd_cli = (Button) findViewById(R.id.btcd_cli);
 		this.btsalvaPedido = (Button) findViewById(R.id.btsalvapedido); 	
 
 		ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, R.array.ds_formapgto,android.R.layout.simple_spinner_item);
 		spnds_formapgto = (Spinner) findViewById(R.id.spnds_formapgto);
 		spnds_formapgto.setAdapter(adapter1);
-		
-					 
-		
-		
+					 		
 		
 		Calendar calendar = Calendar.getInstance();
 		ano = calendar.get(Calendar.YEAR);
 		mes = calendar.get(Calendar.MONTH);
 		dia = calendar.get(Calendar.DAY_OF_MONTH);
 		btdt_lancamento = (Button) findViewById(R.id.btdt_lancamento);
-		btdt_lancamento.setText(dia + "/" + (mes + 1) + "/" + ano);
+//		btdt_lancamento.setText(dia + "/" + (mes + 1) + "/" + ano);
 
 
 		Intent intent = getIntent();
@@ -115,11 +112,11 @@ public class LancaPedido extends Activity implements OnItemClickListener {
 			
 			cursor1.close();
 			
-			long dataChegada = cursor.getLong(2);
-			Date dataChegadaDate = new Date(dataChegada);
-			dateFormat = new SimpleDateFormat("dd/MM/yyyy");
-			String periodo = dateFormat.format(dataChegadaDate);
-			btdt_lancamento.setText(periodo);
+//			long dataChegada = cursor.getLong(2);
+//			Date dataChegadaDate = new Date(dataChegada);
+//			dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+//			String periodo = dateFormat.format(dataChegadaDate);
+//			btdt_lancamento.setText(periodo);
 			atualizavalorespedido(txtcd_pedido.getText().toString());
 			
 			
@@ -217,8 +214,11 @@ public class LancaPedido extends Activity implements OnItemClickListener {
 			// pedido
 			
 				ContentValues values = new ContentValues();
-				dt_lancamento = ConvertToDate(btdt_lancamento.getText()
-						.toString());
+//				dt_lancamento = ConvertToDate(btdt_lancamento.getText()
+//						.toString());
+				dt_lancamento = ConvertToDate(dia+"/"+mes+"/"+"ano");
+				Toast.makeText(this, "data: "+dt_lancamento,
+						Toast.LENGTH_SHORT).show();
 				values.put("dt_lancamento", dt_lancamento.getTime());
 				values.put("vl_bruto", 0);
 				values.put("vl_desconto", 0);
