@@ -48,6 +48,7 @@ public class LancaPedido extends Activity implements OnItemClickListener {
 	TextView txtds_obs;
 	TextView txtcd_tabelapreco;
 	Button btsalvaPedido;
+	private EditText edt_descricao;
 	private Spinner spnds_formapgto;
 	
 	Button btcd_cli;
@@ -55,6 +56,7 @@ public class LancaPedido extends Activity implements OnItemClickListener {
 	Date dt_lancamento;
 	private SimpleDateFormat dateFormat;
 	private DatabaseHelper helper;
+	private ArrayList<Map<String, String>> produtos;
 	public static final String EXTRA_CD_CLI = "com.consultoriasolucao.appsolucaosistemas.EXTRA_CD_CLI";
 	public static final String EXTRA_CD_PEDIDO = "com.consultoriasolucao.appsolucaosistemas.EXTRA_CD_PEDIDO";
 
@@ -85,6 +87,11 @@ public class LancaPedido extends Activity implements OnItemClickListener {
 		ano = calendar.get(Calendar.YEAR);
 		mes = calendar.get(Calendar.MONTH);
 		dia = calendar.get(Calendar.DAY_OF_MONTH);
+		
+		String de[] = { "cd_prd","vl_vnd","nm_prd"};
+		int para[] = { R.id.txt_cdprd, R.id.edt_valorunt,R.id.txt_nmprd};
+
+		SimpleAdapter adapter = new SimpleAdapter(this, buscarProdutos(edt_descricao.getEditableText().toString()), R.layout.listview_produtospedido, de, para);
 
 
 		Intent intent = getIntent();
@@ -125,6 +132,29 @@ public class LancaPedido extends Activity implements OnItemClickListener {
 	public void selecionarDataLancamento(View view) {
 		showDialog(view.getId());
 
+	}
+	
+	private List< Map<String, String>> buscarProdutos(String nome) {
+		// buscar todos os produtos do banco
+		
+
+		Cursor c = helper.getReadableDatabase().rawQuery("select _id,  cd_prd, nm_prd, vl_vnd,rf_prd,qt_prd  from produto where nm_prd like '%"+nome+"%' ORDER BY nm_prd ", null);
+		produtos = new ArrayList<Map<String,String>>();
+		DecimalFormat df = new DecimalFormat(",##0.00");
+		while (c.moveToNext()) 
+		{
+			Map<String, String> mapa = new HashMap<String,String>();
+			mapa.put("cd_prd",  c.getString(1).trim());
+			mapa.put("vl_vnd", " R$: " + df.format(c.getDouble(3))+"  ");
+			mapa.put("nm_prd", c.getString(2));
+			mapa.put("rf_prd", "Ref.: "+ c.getString(4));	
+			mapa.put("qt_prd", "Quant.: " +c.getString(5));
+			produtos.add(mapa);
+		}
+		c.close();
+		helper.close();
+		// construir objeto de retorno que é uma String[]
+		return produtos;
 	}
 
 
