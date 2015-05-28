@@ -10,35 +10,28 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import android.os.Bundle;
 import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.DatePickerDialog.OnDateSetListener;
 import android.content.ContentValues;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.WindowManager;
-import android.view.ContextMenu.ContextMenuInfo;
-import android.webkit.WebView;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.AdapterContextMenuInfo;
-import android.widget.AdapterView.OnItemClickListener;
 
 public class LancaPedido extends Activity implements OnItemClickListener {
 
@@ -48,6 +41,7 @@ public class LancaPedido extends Activity implements OnItemClickListener {
 	TextView txtds_obs;
 	TextView txtcd_tabelapreco;
 	Button btsalvaPedido;
+	ListView listprd;
 	private EditText edt_descricao;
 	private Spinner spnds_formapgto;
 	
@@ -88,11 +82,8 @@ public class LancaPedido extends Activity implements OnItemClickListener {
 		mes = calendar.get(Calendar.MONTH);
 		dia = calendar.get(Calendar.DAY_OF_MONTH);
 		
-		String de[] = { "cd_prd","vl_vnd","nm_prd"};
-		int para[] = { R.id.txt_cdprd, R.id.edt_valorunt,R.id.txt_nmprd};
-
-		SimpleAdapter adapter = new SimpleAdapter(this, buscarProdutos(edt_descricao.getEditableText().toString()), R.layout.listview_produtospedido, de, para);
-
+		listprd = (ListView)findViewById(R.id.lst_produtos);
+		registerForContextMenu(listprd);
 
 		Intent intent = getIntent();
 		if (intent.hasExtra(EXTRA_CD_PEDIDO)) 
