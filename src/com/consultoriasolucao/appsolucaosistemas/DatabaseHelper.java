@@ -22,7 +22,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		
 		db.execSQL("CREATE TABLE licenca (_id INTEGER PRIMARY KEY, dslicenca TEXT);");
 		
-		db.execSQL("CREATE TABLE produto (_id INTEGER PRIMARY KEY, cd_prd INTEGER, nm_prd TEXT, rf_prd TEXT,vl_prd DOUBLE, vl_vnd DOUBLE, qt_prd DOUBLE );");
+		db.execSQL("CREATE TABLE produto (_id INTEGER PRIMARY KEY, cd_prd INTEGER, nm_prd TEXT, rf_prd TEXT,vl_prd DOUBLE, vl_vnd DOUBLE, qt_prd DOUBLE);");
 		
 		db.execSQL("CREATE TABLE cliente (_id INTEGER PRIMARY KEY, cd_cli INTEGER, nm_cli TEXT, nr_tel TEXT, nr_fax TEXT, nr_cel TEXT, nm_rua TEXT, nm_rzascl TEXT, nr_cpfcnpj TEXT, nr_rgie TEXT, nm_cpm TEXT, nr_cep TEXT, ds_obs TEXT, ds_email TEXT, nm_brr TEXT, ds_complemento TEXT);");
 		
@@ -37,11 +37,12 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 		db.execSQL("ALTER TABLE licenca ADD ds_email TEXT"); 
 		db.execSQL("ALTER TABLE coordenadagps ADD vl_latitudec TEXT");
 		db.execSQL("ALTER TABLE coordenadagps ADD  vl_longitudec TEXT");
+		db.execSQL("ALTER TABLE produto ADD  codbarras TEXT");
 		
 //		if (oldVersion <7) 
 			//{
 				 db.execSQL("CREATE TABLE pedido (_id INTEGER, dt_lancamento DATE, vl_bruto DOUBLE, vl_desconto DOUBLE, vl_total DOUBLE,cd_cli integer); ");
-			      db.execSQL("CREATE TABLE itenspedido (_id INTEGER, cd_pedido INTEGER, cd_prd INTEGER, qt_iten DOUBLE, vl_iten DOUBLE); ");
+			      db.execSQL("CREATE TABLE itenspedido (_id INTEGER, cd_pedido INTEGER, cd_prd INTEGER, qt_iten DOUBLE, vl_iten DOUBLE, codbarras TEXT); ");
 		//	}
 			
 			//if (oldVersion <13) 
@@ -55,7 +56,7 @@ public class DatabaseHelper extends SQLiteOpenHelper {
 			  db.execSQL("DROP TABLE pedido;");
 			  db.execSQL("DROP TABLE itenspedido;");
 		  	  db.execSQL("CREATE TABLE pedido (_id INTEGER PRIMARY KEY, dt_lancamento DATE, vl_bruto DOUBLE, vl_desconto DOUBLE, vl_total DOUBLE,cd_cli integer, DS_OBS TEXT); ");
-		      db.execSQL("CREATE TABLE itenspedido (_id INTEGER PRIMARY KEY, cd_pedido INTEGER, cd_prd INTEGER, qt_iten DOUBLE, vl_iten DOUBLE); ");
+		      db.execSQL("CREATE TABLE itenspedido (_id INTEGER PRIMARY KEY, cd_pedido INTEGER, cd_prd INTEGER, qt_iten DOUBLE, vl_iten DOUBLE, codbarras TEXT); ");
 			//}
 		    
 		      //if (oldVersion <16)

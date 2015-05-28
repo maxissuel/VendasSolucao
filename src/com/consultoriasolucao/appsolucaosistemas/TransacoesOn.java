@@ -123,6 +123,7 @@ public class TransacoesOn extends Activity {
 								String vl_prd = st.nextToken();
 								String vl_vnd = st.nextToken();
 								String qt_prd = st.nextToken();
+								String codbarras = st.nextToken();
 								
 								vl_prd =String.valueOf(vl_prd).replace(',', '.');
 								vl_vnd =String.valueOf(vl_vnd).replace(',', '.');
@@ -135,6 +136,7 @@ public class TransacoesOn extends Activity {
 								values.put("vl_prd", Double.valueOf(vl_prd.trim()).doubleValue());
 								values.put("vl_vnd", Double.valueOf(vl_vnd.trim()).doubleValue());
 								values.put("qt_prd", Double.valueOf(qt_prd.trim()).doubleValue());
+								values.put("codbarras", codbarras.trim());
 								long resultado = banco.insert("produto", null, values);
 								
 								

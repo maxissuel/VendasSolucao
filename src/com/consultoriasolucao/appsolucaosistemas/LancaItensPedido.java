@@ -179,6 +179,19 @@ public class LancaItensPedido extends Activity implements OnItemClickListener {
 		if (flagvalida) {
 			SQLiteDatabase db = helper.getWritableDatabase();
 
+			helper = new DatabaseHelper(this);
+			
+			String codbarras="";
+			SQLiteDatabase d = helper.getReadableDatabase();
+			Cursor cursor = d.rawQuery("SELECT codbarras FROM produto where cd_prd="+txtcd_prd.getText().toString(),	null);
+			cursor.moveToNext();
+			
+			if (cursor.getCount() !=0)
+			{		
+			  codbarras = cursor.getString(0);
+		      cursor.close();
+			}
+			
 			
 			// inserindo os itens
 			ContentValues values1 = new ContentValues();
@@ -190,6 +203,7 @@ public class LancaItensPedido extends Activity implements OnItemClickListener {
 			values1.put("vl_iten",
 					Double.valueOf(txtvl_iten.getText().toString().replace(",", "."))
 							.doubleValue());
+			values1.put("codbarras", codbarras);
 			long resultado = db.insert("itenspedido", null, values1);
 
 			buscaritenspedido(txtcd_pedido.getText().toString());

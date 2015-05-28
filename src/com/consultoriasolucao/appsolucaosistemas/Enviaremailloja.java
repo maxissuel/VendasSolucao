@@ -72,7 +72,7 @@ public class Enviaremailloja extends Activity {
 		Cursor c = helper
 				.getReadableDatabase()
 				.rawQuery(
-						"select a._id,  a.cd_prd, b.nm_prd, a.qt_iten ,a.vl_iten,(a.qt_iten*a.vl_iten),d.cd_cli,d.nm_cli,c.vl_total,c.ds_obs,c.ds_formapgto,c.vl_desconto,c.dt_lancamento from itenspedido a join produto b on (a.cd_prd=b.cd_prd) join pedido c on (a.cd_pedido=c._id) join cliente d on (c.cd_cli=d.cd_cli) where a.cd_pedido= "
+						"select a._id,  a.cd_prd, b.nm_prd, a.qt_iten ,a.vl_iten,(a.qt_iten*a.vl_iten),a.codbarras,d.cd_cli,d.nm_cli,c.vl_total,c.ds_obs,c.ds_formapgto,c.vl_desconto,c.dt_lancamento from itenspedido a join produto b on (a.cd_prd=b.cd_prd) join pedido c on (a.cd_pedido=c._id) join cliente d on (c.cd_cli=d.cd_cli) where a.cd_pedido= "
 								+ cdpedido, null);
 		
 		DecimalFormat df = new DecimalFormat(",##0.00");
@@ -86,17 +86,17 @@ public class Enviaremailloja extends Activity {
 
 			if (i==0)//caso seja o primeiro registro o cabeçalho 
 			{
-				long dataChegada = c.getLong(12);
+				long dataChegada = c.getLong(13);
 				Date dataChegadaDate = new Date(dataChegada);
 				dateFormat = new SimpleDateFormat("dd/MM/yyyy");
 				String periodo = dateFormat.format(dataChegadaDate);
 				
 				
-				sb.append("PEDIDO|" + cdpedido+"|"+periodo+"|"+c.getString(11)+"|"+c.getString(6)+"|" +"Forma Pgto: " + c.getString(10)+" Obs..:"+c.getString(9) + "|");				
+				sb.append("PEDIDO|" + cdpedido+"|"+periodo+"|"+c.getString(12)+"|"+c.getString(7)+"|" +"Forma Pgto: " + c.getString(11)+" Obs..:"+c.getString(10) + "|");				
 			}
 			i =i+1;			
 			sb.append("<br>");			
-			sb.append("ITENSPEDIDO|"+c.getString(1)+"|"+df.format(c.getDouble(3))+"|"+df.format(c.getDouble(4))+"|");			
+			sb.append("ITENSPEDIDO|"+c.getString(1)+"|"+df.format(c.getDouble(3))+"|"+df.format(c.getDouble(4))+"|"+c.getString(6)+"|");			
 			
 				
 		}
