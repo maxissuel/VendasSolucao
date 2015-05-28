@@ -45,7 +45,9 @@
            android:id="@+id/edt_quant"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:inputType="number" />
+           android:inputType="number"
+           android:text="        "
+           android:textStyle="bold" />
        
        <TextView
            android:id="@+id/txt_valorunit" 
@@ -53,11 +55,12 @@
            android:layout_height="wrap_content"
            android:text="Vr.Unit:"/>
        
-       <EditText 
+       <EditText
            android:id="@+id/edt_valorunt"
            android:layout_width="wrap_content"
            android:layout_height="wrap_content"
-           android:inputType="number"/>
+           android:inputType="number"
+           android:textStyle="bold" />
        
    </LinearLayout>
 

@@ -28,6 +28,7 @@ import android.view.ContextMenu.ContextMenuInfo;
 import android.webkit.WebView;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -71,7 +72,6 @@ public class LancaItensPedido extends Activity implements OnItemClickListener {
 		this.txtcd_prd =  (TextView) findViewById(R.id.txtcd_prd);
 		this.btcd_prd = (Button) findViewById(R.id.btcd_prd);
 		this.txtvl_descontofinal = (TextView) findViewById(R.id.txtvl_descontofinal);
-		
 		this.lista = (ListView) findViewById(R.id.listaitenspedido);
 
 	
@@ -248,9 +248,9 @@ public class LancaItensPedido extends Activity implements OnItemClickListener {
 	}
 
 	public void buscapedido(String cd_pedido) {
-
 		buscaritenspedido(cd_pedido);
 	}
+	
 
 	private List<Map<String, String>> buscaritensPedido(String cd_pedido) {
 		// buscar todos os produtos do banco

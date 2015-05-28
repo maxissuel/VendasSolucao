@@ -200,9 +200,10 @@
         	android:layout_height="wrap_content">
 
            <CheckBox
-               android:id="@+id/checkBox1"
+               android:id="@+id/cbConferir"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
+               android:onClick="Conferir"
                android:text="Conferir"
                android:textSize="14sp"
                android:textStyle="bold" />
@@ -212,6 +213,7 @@
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_weight="0.08"
+               android:onClick="buscarprodutos"
                android:text="Busca"
                android:textSize="14sp" />
 
@@ -220,7 +222,7 @@
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:onClick="salvaPedido"
-               android:text="Salvar"
+               android:text="Salva"
                android:textSize="14sp" />
 
            <Button

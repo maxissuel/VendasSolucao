@@ -26,6 +26,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.SimpleAdapter;
@@ -35,6 +36,7 @@ import android.widget.Toast;
 
 public class LancaPedido extends Activity implements OnItemClickListener {
 
+	CheckBox cbConferir;
 	TextView txtcd_pedido;
 	TextView txttt_pedido;
 	TextView txtcd_cli;
@@ -43,6 +45,8 @@ public class LancaPedido extends Activity implements OnItemClickListener {
 	Button btsalvaPedido;
 	ListView listprd;
 	private EditText edt_descricao;
+	private EditText edt_id;
+	private EditText edt_desconto;
 	private Spinner spnds_formapgto;
 	
 	Button btcd_cli;
@@ -63,14 +67,20 @@ public class LancaPedido extends Activity implements OnItemClickListener {
         this.getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_HIDDEN); 
 		
 		helper = new DatabaseHelper(this);
-
+		
+		this.edt_desconto = (EditText) findViewById(R.id.edt_desconto);
+		this.edt_descricao = (EditText) findViewById(R.id.edt_descricao);
+		this.edt_id = (EditText) findViewById(R.id.edt_id);
 		this.txtcd_pedido = (TextView) findViewById(R.id.txtcd_pedido);
 		this.txttt_pedido = (TextView) findViewById(R.id.txttt_pedido);
 		this.txtds_obs = (TextView) findViewById(R.id.txtds_obs);
 		this.txtcd_cli = (TextView) findViewById(R.id.txtcd_cli);
 		this.txtcd_tabelapreco = (TextView) findViewById(R.id.edtcd_tabelapreco);
 		this.btcd_cli = (Button) findViewById(R.id.btcd_cli);
-		this.btsalvaPedido = (Button) findViewById(R.id.btsalvapedido); 	
+		this.btsalvaPedido = (Button) findViewById(R.id.btsalvapedido); 
+		this.cbConferir = (CheckBox) findViewById(R.id.cbConferir);
+		this.listprd = (ListView)findViewById(R.id.lst_produtos);
+		registerForContextMenu(listprd);
 
 		ArrayAdapter<CharSequence> adapter1 = ArrayAdapter.createFromResource(this, R.array.ds_formapgto,android.R.layout.simple_spinner_item);
 		spnds_formapgto = (Spinner) findViewById(R.id.spnds_formapgto);
@@ -82,13 +92,11 @@ public class LancaPedido extends Activity implements OnItemClickListener {
 		mes = calendar.get(Calendar.MONTH);
 		dia = calendar.get(Calendar.DAY_OF_MONTH);
 		
-		listprd = (ListView)findViewById(R.id.lst_produtos);
-		registerForContextMenu(listprd);
+
 
 		Intent intent = getIntent();
 		if (intent.hasExtra(EXTRA_CD_PEDIDO)) 
-		{//caso seja edição então carregando os campos
-			
+		{//caso seja edição então carregando os campos			
 			
 			SQLiteDatabase dbexe = helper.getReadableDatabase();
 			Cursor cursor = dbexe.rawQuery(
@@ -96,7 +104,7 @@ public class LancaPedido extends Activity implements OnItemClickListener {
 			cursor.moveToNext();
 			txtcd_pedido.setText(cursor.getString(0));
 			txtds_obs.setText(cursor.getString(4));
-			
+			edt_desconto.setText(cursor.getString(7));
 			txtcd_cli.setText(cursor.getString(1));
 			txtcd_tabelapreco.setText(cursor.getString(6).toString());
 			
@@ -113,39 +121,17 @@ public class LancaPedido extends Activity implements OnItemClickListener {
 			cursor1.close();
 			
 			atualizavalorespedido(txtcd_pedido.getText().toString());
-			
+			buscarprodutos();
 			
 				
-			}		
+			}	
+		buscarprodutos();
 		
 	}
 
 	public void selecionarDataLancamento(View view) {
 		showDialog(view.getId());
 
-	}
-	
-	private List< Map<String, String>> buscarProdutos(String nome) {
-		// buscar todos os produtos do banco
-		
-
-		Cursor c = helper.getReadableDatabase().rawQuery("select _id,  cd_prd, nm_prd, vl_vnd,rf_prd,qt_prd  from produto where nm_prd like '%"+nome+"%' ORDER BY nm_prd ", null);
-		produtos = new ArrayList<Map<String,String>>();
-		DecimalFormat df = new DecimalFormat(",##0.00");
-		while (c.moveToNext()) 
-		{
-			Map<String, String> mapa = new HashMap<String,String>();
-			mapa.put("cd_prd",  c.getString(1).trim());
-			mapa.put("vl_vnd", " R$: " + df.format(c.getDouble(3))+"  ");
-			mapa.put("nm_prd", c.getString(2));
-			mapa.put("rf_prd", "Ref.: "+ c.getString(4));	
-			mapa.put("qt_prd", "Quant.: " +c.getString(5));
-			produtos.add(mapa);
-		}
-		c.close();
-		helper.close();
-		// construir objeto de retorno que é uma String[]
-		return produtos;
 	}
 
 
@@ -187,7 +173,125 @@ public class LancaPedido extends Activity implements OnItemClickListener {
 		}
 		
 	}
+	
+	public void Conferir(View view) {
+		if(cbConferir.isChecked())
+			buscaritenspedido(txtcd_pedido.getText().toString());
+		else if(!cbConferir.isChecked())
+			buscarprodutos();
+	}
 
+	
+	private List<Map<String, String>> buscaritensPedido(String cd_pedido) {
+		// buscar todos os produtos do banco
+
+		Cursor c = helper
+				.getReadableDatabase()
+				.rawQuery(
+						"select a._id,  a.cd_prd, b.nm_prd, a.qt_iten ,a.vl_iten,(a.qt_iten*a.vl_iten) from itenspedido a join produto b on (a.cd_prd=b.cd_prd) where a.cd_pedido= "
+								+ cd_pedido, null);
+		produtos = new ArrayList<Map<String, String>>();
+		DecimalFormat df = new DecimalFormat(",##0.00");
+		while (c.moveToNext()) {
+			Map<String, String> mapa = new HashMap<String, String>();
+			mapa.put("cd_prd", c.getString(1));
+			mapa.put("iditenpedido", c.getString(0));
+			mapa.put("qt_iten", " Quant.: " + df.format(c.getDouble(3)) + "  ");
+			mapa.put("nm_prd", c.getString(2));
+			mapa.put("vl_iten", "V.Uni.: " + df.format(c.getDouble(4)));
+			mapa.put("vl_total", "Total.: " + df.format(c.getDouble(5)) + " ");
+			produtos.add(mapa);
+		}
+		c.close();
+		// construir objeto de retorno que é uma String[]
+		return produtos;
+	}
+	
+	
+	public void buscaritenspedido(String cd_pedido) {
+		String de[] = { "cd_prd", "iditenpedido", "qt_iten", "nm_prd",
+				"vl_iten", "vl_total" };
+		int para[] = { R.id.cd_prd, R.id.iditenpedido, R.id.qt_iten,
+				R.id.nm_prd, R.id.vl_iten, R.id.vl_total };
+
+		SimpleAdapter adapter = new SimpleAdapter(this,
+				buscaritensPedido(cd_pedido), R.layout.listview_itenspedido,
+				de, para);
+
+		listprd.setAdapter(adapter);
+
+	}
+	
+	
+	private List< Map<String, String>> buscarProdutos(String nome) {
+		// buscar todos os produtos do banco
+		if (edt_id.getText().toString().equals("")) //caso não seja consulta por código
+		{
+			Cursor c = helper.getReadableDatabase().rawQuery("select _id,  cd_prd, nm_prd, vl_vnd,rf_prd,qt_prd  from produto where nm_prd like '%"+nome+"%' ORDER BY nm_prd ", null);
+			produtos = new ArrayList<Map<String,String>>();
+			DecimalFormat df = new DecimalFormat(",##0.00");
+			while (c.moveToNext()) 
+			{
+				Map<String, String> mapa = new HashMap<String,String>();
+				mapa.put("cd_prd",  c.getString(1).trim());
+				mapa.put("nm_prd", c.getString(2));
+				mapa.put("vl_vnd", df.format(c.getDouble(3))+"");
+//				mapa.put("rf_prd", "Ref.: "+ c.getString(4));	
+//				mapa.put("qt_prd", "Quant.: " +c.getString(5));
+				produtos.add(mapa);
+			}
+			c.close();
+			helper.close();
+			// construir objeto de retorno que é uma String[]
+			return produtos;
+		}else
+		{
+			Cursor c = helper.getReadableDatabase().rawQuery("select _id,  cd_prd, nm_prd, vl_vnd,rf_prd,qt_prd  from produto where cd_prd="+edt_id.getText().toString(), null);
+			produtos = new ArrayList<Map<String,String>>();
+			DecimalFormat df = new DecimalFormat(",##0.00");
+			while (c.moveToNext()) 
+			{
+				Map<String, String> mapa = new HashMap<String,String>();
+				mapa.put("cd_prd",  c.getString(1).trim());
+				mapa.put("nm_prd", c.getString(2));
+				mapa.put("vl_vnd", df.format(c.getDouble(3))+"");
+				edt_descricao.setText(c.getString(2));
+//				mapa.put("rf_prd", "Ref.: "+ c.getString(4));	
+//				mapa.put("qt_prd", "Quant.: " +c.getString(5));
+				produtos.add(mapa);
+			}
+			c.close();
+			helper.close();
+			// construir objeto de retorno que é uma String[]
+			return produtos;
+		}
+
+	}
+	
+	
+	public void buscarprodutos() {
+		String de[] = { "cd_prd", "nm_prd", "vl_vnd" };
+		int para[] = { R.id.txt_cdprd, R.id.txt_nmprd, R.id.edt_valorunt };
+
+		SimpleAdapter adapter = new SimpleAdapter(this,
+				buscarProdutos(edt_descricao.getText().toString()), R.layout.listview_produtospedido,
+				de, para);
+
+		listprd.setAdapter(adapter);
+
+	}
+	
+	public void buscarprodutos(View view) {
+		String de[] = { "cd_prd", "nm_prd", "vl_vnd" };
+		int para[] = { R.id.txt_cdprd, R.id.txt_nmprd, R.id.edt_valorunt };
+
+		SimpleAdapter adapter = new SimpleAdapter(this,
+				buscarProdutos(edt_descricao.getText().toString()), R.layout.listview_produtospedido,
+				de, para);
+
+		listprd.setAdapter(adapter);
+
+	}
 	
 
 	public void salvaPedido(View view)
@@ -200,11 +304,7 @@ public class LancaPedido extends Activity implements OnItemClickListener {
 		}
 
 		if (flagvalida) {
-			SQLiteDatabase db = helper.getWritableDatabase();
-
-	
-			
-
+			SQLiteDatabase db = helper.getWritableDatabase();	
 			
 			
 			// primeiro tem que verificar se ja foi inserido o registro do
@@ -214,7 +314,7 @@ public class LancaPedido extends Activity implements OnItemClickListener {
 				dt_lancamento = ConvertToDate(dia+"/"+(mes+1)+"/"+ano);
 				values.put("dt_lancamento", dt_lancamento.getTime());
 				values.put("vl_bruto", 0);
-				values.put("vl_desconto", 0);
+				values.put("vl_desconto", edt_desconto.getText().toString());
 				values.put("vl_total", 0);
 				values.put("cd_cli", txtcd_cli.getText().toString());
 				values.put("ds_obs", txtds_obs.getText().toString());
@@ -228,11 +328,7 @@ public class LancaPedido extends Activity implements OnItemClickListener {
 				
 				
 				
-				btsalvaPedido.setVisibility(View.INVISIBLE);	
-				
-
-			
-
+//				btsalvaPedido.setVisibility(View.INVISIBLE);
 		
 			atualizavalorespedido(txtcd_pedido.getText().toString());
 			
@@ -246,13 +342,14 @@ public class LancaPedido extends Activity implements OnItemClickListener {
 				"select coalesce(sum(vl_iten*qt_iten),0) from itenspedido  where cd_pedido= "
 						+ cd_pedido, null);
 		c.moveToFirst();
+		
 		SQLiteDatabase db = helper.getWritableDatabase();
 		ContentValues values = new ContentValues();
-		values.put("vl_total", c.getDouble(0));
+		double vl_total = c.getDouble(0) - Double.parseDouble(edt_desconto.getText().toString());
+		values.put("vl_total", vl_total);
+		
 		DecimalFormat df = new DecimalFormat(",##0.00");
-		txttt_pedido.setText(df.format(c.getDouble(0))+"");
-		
-		
+		txttt_pedido.setText(df.format(vl_total)+"");		
 	}
 
 
