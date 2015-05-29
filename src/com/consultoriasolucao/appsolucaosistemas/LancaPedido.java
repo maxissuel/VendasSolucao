@@ -199,11 +199,11 @@ public class LancaPedido extends Activity implements OnItemClickListener {
 		while (c.moveToNext()) {
 			Map<String, String> mapa = new HashMap<String, String>();
 			mapa.put("cd_prd", c.getString(1));
-			mapa.put("iditenpedido", c.getString(0));
-			mapa.put("qt_iten", " Quant.: " + df.format(c.getDouble(3)) + "  ");
+//			mapa.put("iditenpedido", c.getString(0));
+			mapa.put("qt_iten", df.format(c.getDouble(3)) + "   ");
 			mapa.put("nm_prd", c.getString(2));
-			mapa.put("vl_iten", "V.Uni.: " + df.format(c.getDouble(4)));
-			mapa.put("vl_total", "Total.: " + df.format(c.getDouble(5)) + " ");
+			mapa.put("vl_iten", df.format(c.getDouble(4)));
+			mapa.put("vl_total", "Total R$:\n" + df.format(c.getDouble(5)) + "\n");
 			produtos.add(mapa);
 		}
 		c.close();
@@ -213,13 +213,11 @@ public class LancaPedido extends Activity implements OnItemClickListener {
 	
 	
 	public void buscaritenspedido(String cd_pedido) {
-		String de[] = { "cd_prd", "iditenpedido", "qt_iten", "nm_prd",
-				"vl_iten", "vl_total" };
-		int para[] = { R.id.cd_prd, R.id.iditenpedido, R.id.qt_iten,
-				R.id.nm_prd, R.id.vl_iten, R.id.vl_total };
+		String de[] = { "cd_prd", "qt_iten", "nm_prd","vl_iten", "vl_total" };
+		int para[] = { R.id.txt_cdprd, R.id.edt_quant,R.id.txt_nmprd, R.id.edt_valorunt, R.id.txt_valortotal };
 
 		SimpleAdapter adapter = new SimpleAdapter(this,
-				buscaritensPedido(cd_pedido), R.layout.listview_itenspedido,
+				buscaritensPedido(cd_pedido), R.layout.listview_produtospedido,
 				de, para);
 
 		listprd.setAdapter(adapter);
@@ -239,7 +237,8 @@ public class LancaPedido extends Activity implements OnItemClickListener {
 				Map<String, String> mapa = new HashMap<String,String>();
 				mapa.put("cd_prd",  c.getString(1).trim());
 				mapa.put("nm_prd", c.getString(2));
-				mapa.put("vl_vnd", df.format(c.getDouble(3))+"");
+				mapa.put("vl_vnd", df.format(c.getDouble(3))+"   ");
+				mapa.put("vl_total", "");
 //				mapa.put("rf_prd", "Ref.: "+ c.getString(4));	
 //				mapa.put("qt_prd", "Quant.: " +c.getString(5));
 				produtos.add(mapa);
@@ -258,7 +257,8 @@ public class LancaPedido extends Activity implements OnItemClickListener {
 				Map<String, String> mapa = new HashMap<String,String>();
 				mapa.put("cd_prd",  c.getString(1).trim());
 				mapa.put("nm_prd", c.getString(2));
-				mapa.put("vl_vnd", df.format(c.getDouble(3))+"");
+				mapa.put("vl_vnd", df.format(c.getDouble(3))+"   ");
+				mapa.put("vl_total", "");
 				edt_descricao.setText(c.getString(2));
 //				mapa.put("rf_prd", "Ref.: "+ c.getString(4));	
 //				mapa.put("qt_prd", "Quant.: " +c.getString(5));
@@ -274,28 +274,28 @@ public class LancaPedido extends Activity implements OnItemClickListener {
 	
 	
 	public void buscarprodutos() {
-		String de[] = { "cd_prd", "nm_prd", "vl_vnd" };
-		int para[] = { R.id.txt_cdprd, R.id.txt_nmprd, R.id.edt_valorunt };
+		String de[] = { "cd_prd", "nm_prd", "vl_vnd", "vl_total" };
+		int para[] = { R.id.txt_cdprd, R.id.txt_nmprd, R.id.edt_valorunt, R.id.txt_valortotal };
 
 		SimpleAdapter adapter = new SimpleAdapter(this,
 				buscarProdutos(edt_descricao.getText().toString()), R.layout.listview_produtospedido,
 				de, para);
 
 		listprd.setAdapter(adapter);
-		edt_valorunt.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+//		edt_valorunt.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
 	}
 	
 	public void buscarprodutos(View view) {
-		String de[] = { "cd_prd", "nm_prd", "vl_vnd" };
-		int para[] = { R.id.txt_cdprd, R.id.txt_nmprd, R.id.edt_valorunt };
+		String de[] = { "cd_prd", "nm_prd", "vl_vnd", "vl_total" };
+		int para[] = { R.id.txt_cdprd, R.id.txt_nmprd, R.id.edt_valorunt, R.id.txt_valortotal };
 
 		SimpleAdapter adapter = new SimpleAdapter(this,
 				buscarProdutos(edt_descricao.getText().toString()), R.layout.listview_produtospedido,
 				de, para);
 
 		listprd.setAdapter(adapter);
-		edt_valorunt.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+//		edt_valorunt.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 	}
 	
 
@@ -319,10 +319,12 @@ public class LancaPedido extends Activity implements OnItemClickListener {
 				dt_lancamento = ConvertToDate(dia+"/"+(mes+1)+"/"+ano);
 				values.put("dt_lancamento", dt_lancamento.getTime());
 				values.put("vl_bruto", 0);
-				if(edt_desconto.getText().toString().equals(""))
-					values.put("vl_desconto", edt_desconto.getText().toString().replace(",", "."));
+				if(edt_desconto.getText().toString().equals("")){
+					values.put("vl_desconto", 0);			
+					edt_desconto.setText("0");
+				}
 				else
-					values.put("vl_desconto", 0);
+					values.put("vl_desconto", edt_desconto.getText().toString().replace(",", "."));
 				values.put("vl_total", 0);
 				values.put("cd_cli", txtcd_cli.getText().toString());
 				values.put("ds_obs", txtds_obs.getText().toString());
@@ -347,7 +349,7 @@ public class LancaPedido extends Activity implements OnItemClickListener {
 	
 	public void atualizavalorespedido(String cd_pedido) {
 		Cursor c = helper.getReadableDatabase().rawQuery(
-				"select coalesce(sum(vl_iten*qt_iten),0) from itenspedido  where cd_pedido= "
+				"select coalesce(sum(vl_iten*qt_iten),0)  from itenspedido  where cd_pedido= "
 						+ cd_pedido, null);
 		c.moveToFirst();
 		
@@ -355,7 +357,7 @@ public class LancaPedido extends Activity implements OnItemClickListener {
 		ContentValues values = new ContentValues();
 		double vl_total = c.getDouble(0) - Double.parseDouble(edt_desconto.getText().toString());
 		values.put("vl_total", vl_total);
-		db.update("pedido",  values, "_id ="+txtcd_pedido.getText().toString(),null);
+		db.update("pedido",  values, "_id ="+cd_pedido,null);
 		DecimalFormat df = new DecimalFormat(",##0.00");
 		txttt_pedido.setText(df.format(vl_total)+"");		
 	}

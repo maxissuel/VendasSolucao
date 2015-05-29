@@ -62,6 +62,11 @@
            android:inputType="number"
            android:textStyle="bold" />
        
+       <TextView
+           android:id="@+id/txt_valortotal" 
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"/>
+       
    </LinearLayout>
 
 </LinearLayout>
