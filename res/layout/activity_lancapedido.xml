@@ -184,7 +184,8 @@
       	        android:layout_width="64dp"
       	        android:layout_height="match_parent"
       	        android:ems="10"
-      	        android:inputType="numberSigned" >
+      	        android:inputType="number" >
+
       	    </EditText>
       	</LinearLayout>
 

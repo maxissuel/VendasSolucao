@@ -16,6 +16,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.text.InputType;
 import android.view.ContextMenu;
 import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
@@ -47,6 +48,7 @@ public class LancaPedido extends Activity implements OnItemClickListener {
 	private EditText edt_descricao;
 	private EditText edt_id;
 	private EditText edt_desconto;
+	private EditText edt_valorunt;
 	private Spinner spnds_formapgto;
 	
 	Button btcd_cli;
@@ -68,7 +70,9 @@ public class LancaPedido extends Activity implements OnItemClickListener {
 		
 		helper = new DatabaseHelper(this);
 		
+		this.edt_valorunt = (EditText) findViewById(R.id.edt_valorunt);
 		this.edt_desconto = (EditText) findViewById(R.id.edt_desconto);
+		this.edt_desconto.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 		this.edt_descricao = (EditText) findViewById(R.id.edt_descricao);
 		this.edt_id = (EditText) findViewById(R.id.edt_id);
 		this.txtcd_pedido = (TextView) findViewById(R.id.txtcd_pedido);
@@ -278,6 +282,7 @@ public class LancaPedido extends Activity implements OnItemClickListener {
 				de, para);
 
 		listprd.setAdapter(adapter);
+		edt_valorunt.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 
 	}
 	
@@ -290,7 +295,7 @@ public class LancaPedido extends Activity implements OnItemClickListener {
 				de, para);
 
 		listprd.setAdapter(adapter);
-
+		edt_valorunt.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
 	}
 	
 
@@ -314,7 +319,10 @@ public class LancaPedido extends Activity implements OnItemClickListener {
 				dt_lancamento = ConvertToDate(dia+"/"+(mes+1)+"/"+ano);
 				values.put("dt_lancamento", dt_lancamento.getTime());
 				values.put("vl_bruto", 0);
-				values.put("vl_desconto", edt_desconto.getText().toString());
+				if(edt_desconto.getText().toString().equals(""))
+					values.put("vl_desconto", edt_desconto.getText().toString().replace(",", "."));
+				else
+					values.put("vl_desconto", 0);
 				values.put("vl_total", 0);
 				values.put("cd_cli", txtcd_cli.getText().toString());
 				values.put("ds_obs", txtds_obs.getText().toString());
@@ -347,7 +355,7 @@ public class LancaPedido extends Activity implements OnItemClickListener {
 		ContentValues values = new ContentValues();
 		double vl_total = c.getDouble(0) - Double.parseDouble(edt_desconto.getText().toString());
 		values.put("vl_total", vl_total);
-		
+		db.update("pedido",  values, "_id ="+txtcd_pedido.getText().toString(),null);
 		DecimalFormat df = new DecimalFormat(",##0.00");
 		txttt_pedido.setText(df.format(vl_total)+"");		
 	}

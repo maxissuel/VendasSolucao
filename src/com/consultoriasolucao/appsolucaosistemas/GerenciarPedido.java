@@ -265,4 +265,12 @@ public class GerenciarPedido extends Activity implements
 
 	}
 
+	@Override
+	public void onResume(){
+		super.onResume();
+		buscarrelat();
+		
+		
+	}
+
 }
